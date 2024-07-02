@@ -1,0 +1,108 @@
+#!/bin/bash
+
+# VARIABLES
+
+PROJECT=$(gcloud config get project)
+
+OBJECT=$1
+BUCKET="$PROJECT-bucket"
+STORAGE_CLASS="standard"
+RECURSIVE=false
+
+
+# FUNCTIONS
+
+# Function for parsing command-line arguments
+args_parsing() {
+    for arg in "$@"; do
+        case $arg in
+            --bucket=*)
+                BUCKET="${arg#*=}"
+                ;;
+            --storage-class=*)
+                STORAGE_CLASS="${arg#*=}"
+                ;;
+            *)
+                ;;
+        esac
+    done
+    if [ -d "$OBJECT" ]; then
+	    RECURSIVE=true
+	fi
+}
+
+# Function to check if the file/directory exists in the bucket
+file_check() {
+    if gcloud storage ls gs://$BUCKET/$OBJECT >/dev/null 2>&1; then
+        echo 'Error: The object "$OBJECT" already exists in the bucket "$BUCKET"'
+        echo "Please choose an option:"
+        echo "[1] Re-enter OBJECT"
+        echo '[2] Overwrite the existing object "$OBJECT"'
+        while true; do
+			read -r choice
+	        case $choice in
+		        1)
+		            read -p "OBJECT=" OBJECT
+		            ;;
+		        2)
+			        break
+			        ;;
+			    *)
+				    echo "Invalid choice. Please enter 1 or 2."
+				    ;;
+			esac
+        done
+    fi
+}
+
+# Function to upload the file/directory to the bucket
+file_upload() {
+    if ! gcloud storage ls gs://$BUCKET >/dev/null 2>&1; then
+        echo 'Warning: The bucket "$BUCKET" does not exist.'
+        echo 'Creating the bucket "$BUCKET"...'
+        gcloud storage buckets create gs://$BUCKET
+    fi
+	echo 'Uploading "$OBJECT" to the bucket "$BUCKET"...'
+    if [ $RECURSIVE ]; then
+        gcloud storage cp --recursive "$OBJECT" gs://$BUCKET --storage-class=$STORAGE_CLASS
+    else
+        gcloud storage cp "$OBJECT" gs://$BUCKET --storage-class=$STORAGE_CLASS
+    fi
+}
+
+# Function to generate a shareable link for the uploaded file
+file_share() {
+    if gcloud storage ls gs://$BUCKET/$OBJECT >/dev/null 2>&1; then
+		gcloud storage objects update gs://$BUCKET/$OBJECT --add-acl-grant=entity=AllUsers,role=READER
+		echo "Generating a sharable link for gs://$BUCKET/$OBJECT..."
+		echo "Public access URL: https://storage.googleapis.com/$BUCKET/$OBJECT"
+    fi
+}
+
+
+# MAIN
+
+if [ -z "$OBJECT" ]; then
+    echo "Error: No object specified."
+    echo "Usage: clouduploader OBJECT [--bucket=BUCKET] [--storage-class=STORAGE_CLASS]"
+    exit 1
+fi
+
+args_parsing "$@"
+
+echo "Source: $OBJECT"
+[[ $RECURSIVE ]] && echo "Source type: directory" || echo "Source type: file"
+[[ $BUCKET == "$PROJECT-bucket" ]] && echo "Destination (default): $BUCKET" || echo "Destination: $BUCKET"
+[[ $STORAGE_CLASS == "standard" ]] && echo "Storage class (default): $STORAGE_CLASS" || echo "Storage class: $STORAGE_CLASS"
+
+read -p "Press Enter to continue or 'q' to quit: " choice
+[[ "$choice" == "q" ]] && exit 0
+
+file_check
+
+file_upload
+read -p "Press enter to generate sharable link or q to quit: " choice
+[[ $choice == "q" ]] && { echo "Upload complete. Exiting..."; exit 0; }
+
+file_share
+echo "Upload and link generation complete. Exiting..."
