@@ -1,0 +1,41 @@
+#!/bin/bash
+
+setup() {
+    # 1. Before you install the gcloud CLI, make sure that your operating system meets the following requirements:
+    sudo apt-get update
+    sudo apt-get install apt-transport-https ca-certificates gnupg curl
+
+    # 2. Import the Google Cloud public key.
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+
+    # 3. Add the gcloud CLI distribution URI as a package source.
+    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+    # 4. Update and install the gcloud CLI:
+    sudo apt-get update && sudo apt-get install google-cloud-cli
+
+    # 5. Run gcloud init to get started:
+    gcloud init
+}
+
+check_region() {
+	REGION=$(gcloud config get compute/region)
+	ZONE=$(gcloud config get compute/zone)
+    if [ -z "$REGION" ]; then
+		if [ -z "$ZONE" ]; then
+			read -p "enter zone or leave blank to use the default(us-central1-b): " zone
+			if [ -z "$zone" ]; then
+				ZONE=us-central1-b
+			else
+				ZONE=$zone
+			fi
+		fi
+		REGION=${ZONE%-*}
+	fi
+	
+	gcloud config set compute/region $REGION
+	gcloud config set compute/zone $ZONE
+}
+
+setup
+check_region
