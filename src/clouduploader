@@ -4,7 +4,7 @@
 
 PROJECT=$(gcloud config get project)
 
-OBJECT=$1
+OBJECT="$1"
 BUCKET="$PROJECT-bucket"
 STORAGE_CLASS="standard"
 RECURSIVE=false
@@ -31,11 +31,11 @@ args_parsing() {
 # Function to check if the file/directory exists in the bucket
 file_check() {
     if [ ! -f $OBJECT ]; then
-	    echo 'Error: The object "$OBJECT" does not exist in current directory "$(pwd)"'
-        read -p "Please enter a new object or press 'q' to quit: " object
+	    echo "$OBJECT: No such file or directory"
+        read -p "Please enter a new object or enter 'q' to quit: " object
         if [ object == 'q' ]; then
-            echo "Usage: clouduploader OBJECT [--bucket=BUCKET] [--storage-class=STORAGE_CLASS]"
-            exit 1
+            echo "Upload cancelled. Exiting..."
+            exit 0
         else
             OBJECT=$object
         fi
@@ -65,7 +65,8 @@ file_check() {
                     mv $OBJECT $NEW_OBJECT
 			        ;;
 		        4)
-			        exit 1
+                    echo "Upload cancelled. Exiting..."
+			        exit 0
 			        ;;
 			    *)
 				    echo "Invalid choice. "
@@ -116,13 +117,13 @@ echo "Source: $OBJECT"
 [[ $STORAGE_CLASS == "standard" ]] && echo "Storage class (default): $STORAGE_CLASS" || echo "Storage class: $STORAGE_CLASS"
 
 read -p "Press Enter to continue or 'q' to quit: " choice
-[[ "$choice" == "q" ]] && exit 0
+[[ "$choice" == "q" ]] && { echo "Upload cancelled. Exiting..."; exit 0; }
 
 file_check
 
 file_upload
 read -p "Press enter to generate sharable link or q to quit: " choice
-[[ $choice == "q" ]] && { echo "Upload complete. Exiting..."; exit 0; }
+[[ $choice == "q" ]] && { echo "Upload completed. Exiting..."; exit 0; }
 
 file_share
-echo "Upload and link generation complete. Exiting..."
+echo "Upload and link generation completed. Exiting..."

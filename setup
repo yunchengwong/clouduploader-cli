@@ -18,9 +18,11 @@ setup() {
     gcloud init
 }
 
+
 check_region() {
 	REGION=$(gcloud config get compute/region)
 	ZONE=$(gcloud config get compute/zone)
+    
     if [ -z "$REGION" ]; then
 		if [ -z "$ZONE" ]; then
 			read -p "enter zone or leave blank to use the default(us-central1-b): " zone
@@ -36,6 +38,7 @@ check_region() {
 	gcloud config set compute/region $REGION
 	gcloud config set compute/zone $ZONE
 }
+
 
 setup
 check_region
