@@ -46,10 +46,12 @@ file_check() {
 	fi
     if gcloud storage ls gs://$BUCKET/$OBJECT >/dev/null 2>&1; then
         echo 'Error: The object "$OBJECT" already exists in the bucket "$BUCKET"'
-        echo "Please choose an option:"
-        echo "[1] Re-enter OBJECT"
-        echo '[2] Overwrite the existing object "$OBJECT"'
         while true; do
+        echo "Please choose an option:"
+            echo "[1] Enter a new object"
+            echo '[2] Overwrite the existing object "$OBJECT"'
+    	    echo '[3] Rename the object "OBJECT"'
+    	    echo '[4] Quit'
 			read -r choice
 	        case $choice in
 		        1)
@@ -58,8 +60,15 @@ file_check() {
 		        2)
 			        break
 			        ;;
+		        3)
+			        read -p "NEW_OBJECT=" NEW_OBJECT
+                    mv $OBJECT $NEW_OBJECT
+			        ;;
+		        4)
+			        exit 1
+			        ;;
 			    *)
-				    echo "Invalid choice. Please enter 1 or 2."
+				    echo "Invalid choice. "
 				    ;;
 			esac
         done
