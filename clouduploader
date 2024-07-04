@@ -26,13 +26,24 @@ args_parsing() {
                 ;;
         esac
     done
-    if [ -d "$OBJECT" ]; then
-	    RECURSIVE=true
-	fi
 }
 
 # Function to check if the file/directory exists in the bucket
 file_check() {
+    if [ ! -f $OBJECT ]; then
+	    echo 'Error: The object "$OBJECT" does not exist in current directory "$(pwd)"'
+        read -p "Please enter a new object or press 'q' to quit: " object
+        if [ object == 'q' ]; then
+            echo "Usage: clouduploader OBJECT [--bucket=BUCKET] [--storage-class=STORAGE_CLASS]"
+            exit 1
+        else
+            OBJECT=$object
+        fi
+	fi
+    if [ -d $OBJECT ]; then
+	    RECURSIVE=true
+        echo 'Warning: This operation will upload all files in the directory "$OBJECT"'
+	fi
     if gcloud storage ls gs://$BUCKET/$OBJECT >/dev/null 2>&1; then
         echo 'Error: The object "$OBJECT" already exists in the bucket "$BUCKET"'
         echo "Please choose an option:"
