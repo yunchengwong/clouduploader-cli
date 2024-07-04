@@ -7,8 +7,8 @@ load 'test_helper/bats-support/load'
 load 'test_helper/bats-assert/load'
 
 setup() {
-    PROJECT="test-project"
-    OBJECT="test-object"
+    PROJECT="solid-sniffle"
+    OBJECT="example.txt"
     BUCKET="${PROJECT}-bucket"
 }
 
