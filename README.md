@@ -33,7 +33,7 @@ or
 
 (Recommended) Using GitHub Codespaces (folder `.devcontainer` required):
 
-screenshots
+![image](https://github.com/yunchengwong/clouduploader-cli/assets/48376163/864241a6-1df9-4a03-bf14-e2cbd49c7761)
 
 ###### Step 2: Make the Scripts Executable
 
