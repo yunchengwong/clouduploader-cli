@@ -1,4 +1,4 @@
-# CLOUDUPLOADER-CLI
+# CLOUDUPLOADER-CLI-GCP
 
 A bash-based CLI tool that allows users to quickly upload files to Google Cloud Storage, providing a seamless upload experience similar to popular storage services.
 
