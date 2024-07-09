@@ -18,7 +18,7 @@ clouduploader OBJECT [--bucket=BUCKET] [--storage-class=STORAGE_CLASS]
 
 ## INSTALLATION 
 
-**Note:** Only the files setup and clouduploader is required to perform simple upload to Google Cloud Storage
+> **Note:** Only the files setup and clouduploader is required to perform simple upload to Google Cloud Storage
 
 #### Step 1: Clone the repository
 
