@@ -1,8 +1,8 @@
-## CLOUDUPLOADER-CLI
+# CLOUDUPLOADER-CLI
 
 A bash-based CLI tool that allows users to quickly upload files to Google Cloud Storage, providing a seamless upload experience similar to popular storage services.
 
-#### PREREQUISITES
+## PREREQUISITES
 
 - **Google Cloud Account:** You must have a Google Cloud account with active billing. For more information, see [Create free account](https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwjv4rag0YiHAxWL4RYFHelWBqoYABABGgJ0bA&co=1&ase=2&gclid=CjwKCAjwyo60BhBiEiwAHmVLJcA7TabY8sV7owWMwhfaBI9U_3A1qSMIimrhMpXi4HVE5Gx-oI-LjhoCo0wQAvD_BwE&ei=yheEZpDINLeF4-EPwvaCiAE&ohost=www.google.com&cid=CAESVeD2brbPcj_YXbA6und6jqaPM94VVZu70iyOdtc6jG8nz_HwuVI3QFrinlciXwXvocM485XEMkE9HPx8hmXk4bhd5ZSuS2M580J4Dw9ApjvAN3ZOnYo&sig=AOD64_2zm-TBrPQGuwtu9BNoMLZM2qPAlg&q&sqi=2&nis=6&adurl&ved=2ahUKEwiQ1ayg0YiHAxW3wjgGHUK7ABEQqyQoAHoECBEQDA).
 - **Required Permissions:** To create and manage Cloud Storage resources, you need the Storage Admin (roles/storage.admin) IAM role for the project. During installation, sign in to the gcloud CLI with:
@@ -10,17 +10,17 @@ A bash-based CLI tool that allows users to quickly upload files to Google Cloud 
 	- A service account. For more information, see the "Setup & Authentication: (Optional) Service Account" section below.
 - **Bash Environment:** Available on Linux/Unix, macOS, and Windows Subsystem for Linux.
 
-#### USAGE
+## USAGE
 
 ```
 clouduploader OBJECT [--bucket=BUCKET] [--storage-class=STORAGE_CLASS]
 ```
 
-#### INSTALLATION 
+## INSTALLATION 
 
 **Note:** Only the files setup and clouduploader is required to perform simple upload to Google Cloud Storage
 
-###### Step 1: Clone the repository
+#### Step 1: Clone the repository
 
 Using Git:
 
@@ -35,19 +35,19 @@ or
 
 ![image](https://github.com/yunchengwong/clouduploader-cli/assets/48376163/864241a6-1df9-4a03-bf14-e2cbd49c7761)
 
-###### Step 2: Make the Scripts Executable
+#### Step 2: Make the Scripts Executable
 
 ```
 chmod 755 setup clouduploader
 ```
 
-###### Step 3: Run the Installation Script
+#### Step 3: Run the Installation Script
 
 ```
 ./setup
 ```
 
-###### Step 4: (Optional) Modify the `PATH` Variable
+#### Step 4: (Optional) Modify the `PATH` Variable
 
 To run the program `clouduploader` without the `./` prefix, you need to add its path to your system's `PATH` variable.
 
@@ -81,17 +81,17 @@ source ~/.bashrc  # or source ~/.zshrc
 
 **Note:** Editing the shell configuration file directly modifies your environment settings permanently. Ensure you have the necessary permissions and understand the changes being made.
 
-#### TROUBLESHOOTING
+## TROUBLESHOOTING
 
-#### REFERENCES (BY STEPS)
+## REFERENCES (BY STEPS)
 
 https://learntocloud.guide/phase1/
 
-###### 1. Create a GitHub Repo: GitHub Codespaces
+#### 1. Create a GitHub Repo: GitHub Codespaces
 
 https://github.com/microsoft/bash-for-beginners
 
-###### 2. Setup & Authentication: Google Cloud CLI
+#### 2. Setup & Authentication: Google Cloud CLI
 
 https://cloud.google.com/sdk/docs/install-sdk#installing_the_latest_version
 
@@ -113,7 +113,7 @@ sudo apt-get update && sudo apt-get install google-cloud-cli
 gcloud init
 ```
 
-###### 2. Setup & Authentication: (Optional) Service Account
+#### 2. Setup & Authentication: (Optional) Service Account
 
 https://www.cloudskillsboost.google/course_templates/49/labs/386466
 
@@ -125,7 +125,7 @@ https://www.cloudskillsboost.google/course_templates/49/labs/386466
 gcloud auth activate-service-account --key-file credentials.json
 ```
 
-###### 3. CLI Argument Parsing
+#### 3. CLI Argument Parsing
 
 https://cloud.google.com/storage/docs/discover-object-storage-gcloud
 https://cloud.google.com/sdk/gcloud/reference/storage
@@ -145,7 +145,7 @@ gcloud storage ls gs://my-awesome-bucket
 gcloud storage ls --recursive gs://my-awesome-bucket
 ```
 
-###### 7. Advanced Features: Provide an option to generate and display a shareable link post-upload.
+#### 7. Advanced Features: Provide an option to generate and display a shareable link post-upload.
 
 https://cloud.google.com/storage/docs/access-control/making-data-public
 https://cloud.google.com/storage/docs/uniform-bucket-level-access
@@ -154,12 +154,12 @@ https://cloud.google.com/storage/docs/uniform-bucket-level-access
 gcloud storage objects update gs://BUCKET_NAME/OBJECT_NAME --add-acl-grant=entity=AllUsers,role=READER
 ```
 
-###### 7. Advanced Features: Integrate encryption for added security before the upload.
+#### 7. Advanced Features: Integrate encryption for added security before the upload.
 
 https://cloud.google.com/storage/docs/encryption
 
 > Cloud Storage always encrypts your data on the server side, before it is written to disk, at no additional charge.
 
-###### 9. Distribution
+#### 9. Distribution
 
 https://stackoverflow.com/questions/8779951/how-do-i-run-a-shell-script-without-using-sh-or-bash-commands
