@@ -7,7 +7,7 @@ A bash-based CLI tool that allows users to quickly upload files to Google Cloud 
 - **Google Cloud Account:** You must have a Google Cloud account with active billing. For more information, see [Create free account](https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwjv4rag0YiHAxWL4RYFHelWBqoYABABGgJ0bA&co=1&ase=2&gclid=CjwKCAjwyo60BhBiEiwAHmVLJcA7TabY8sV7owWMwhfaBI9U_3A1qSMIimrhMpXi4HVE5Gx-oI-LjhoCo0wQAvD_BwE&ei=yheEZpDINLeF4-EPwvaCiAE&ohost=www.google.com&cid=CAESVeD2brbPcj_YXbA6und6jqaPM94VVZu70iyOdtc6jG8nz_HwuVI3QFrinlciXwXvocM485XEMkE9HPx8hmXk4bhd5ZSuS2M580J4Dw9ApjvAN3ZOnYo&sig=AOD64_2zm-TBrPQGuwtu9BNoMLZM2qPAlg&q&sqi=2&nis=6&adurl&ved=2ahUKEwiQ1ayg0YiHAxW3wjgGHUK7ABEQqyQoAHoECBEQDA).
 - **Required Permissions:** To create and manage Cloud Storage resources, you need the Storage Admin (roles/storage.admin) IAM role for the project. During installation, sign in to the gcloud CLI with:
 	- User credentials, or
-	- A service account. For more information, see the "Setup & Authentication: (Optional) Service Account" section below.
+	- A service account. For more information, see "[Setup & Authentication: (Optional) Service Account](#2-setup--authentication-optional-service-account)".
 - **Bash Environment:** Available on Linux/Unix, macOS, and Windows Subsystem for Linux.
 
 ## USAGE
@@ -120,6 +120,7 @@ https://www.cloudskillsboost.google/course_templates/49/labs/386466
 1. create service account `clouduploader-storage-admin` with **Storage Admin** role
 2. create and download a JSON key file in `clouduploader-storage-admin` > **KEYS**, rename it to `credentials.json`
 3. upload `credentials.json` to `clouduploader-cli`
+4. run the following command to reconfigure google cloud cli `gcloud`:
 
 ```
 gcloud auth activate-service-account --key-file credentials.json
