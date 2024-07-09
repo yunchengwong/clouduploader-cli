@@ -16,7 +16,9 @@ A bash-based CLI tool that allows users to quickly upload files to Google Cloud 
 clouduploader OBJECT [--bucket=BUCKET] [--storage-class=STORAGE_CLASS]
 ```
 
-#### INSTALLATION
+#### INSTALLATION 
+
+**Note:** Only the files setup and clouduploader is required to perform simple upload to Google Cloud Storage
 
 ###### Step 1: Clone the repository
 
@@ -27,7 +29,9 @@ git clone https://github.com/yunchengwong/clouduploader-cli.git
 cd clouduploader-cli
 ```
 
-(Recommended) Using GitHub Codespaces:
+or
+
+(Recommended) Using GitHub Codespaces (folder `.devcontainer` required):
 
 screenshots
 
@@ -59,15 +63,17 @@ PATH=$PATH:$(pwd)
 
 **Permanent Solution:**
 
-1. Open your shell configuration file (`~/.bashrc`, `~/.zshrc`, etc.).
+1. Copy clouduploader directory, ex. `/workspaces/username/clouduploader-cli/src`
 
-2. Add the following line:
+2. Open your shell configuration file (`~/.bashrc`, `~/.zshrc`, etc.).
+
+3. Add the following line:
 
 ```
-export PATH=$PATH:$(pwd)
+export PATH=$PATH:<CLOUDUPLOADER_DIR>
 ```
 
-3. Save the file and reload the shell configuration:
+4. Save the file and reload the shell configuration:
 
 ```
 source ~/.bashrc  # or source ~/.zshrc
