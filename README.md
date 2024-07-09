@@ -59,7 +59,7 @@ Run the following command in your shell terminal:
 PATH=$PATH:$(pwd)
 ```
 
-**Note:** This change is temporary and will reset when you close the terminal.
+> **Note:** This change is temporary and will reset when you close the terminal.
 
 **Permanent Solution:**
 
@@ -79,7 +79,7 @@ export PATH=$PATH:<CLOUDUPLOADER_DIR>
 source ~/.bashrc  # or source ~/.zshrc
 ```
 
-**Note:** Editing the shell configuration file directly modifies your environment settings permanently. Ensure you have the necessary permissions and understand the changes being made.
+> **Note:** Editing the shell configuration file directly modifies your environment settings permanently. Ensure you have the necessary permissions and understand the changes being made.
 
 ## TROUBLESHOOTING
 
